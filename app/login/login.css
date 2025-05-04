@@ -1,0 +1,126 @@
+.login-page {
+  height: 100vh;
+  background: #e9c04a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.main-content {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s ease;
+  z-index: 1;
+}
+
+.top {
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo {
+  height: 40px !important;
+  width: auto;
+}
+
+.school-name {
+  font-family: 'Rustic Printed', sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  color: #1a2253;
+  letter-spacing: -1px;
+  text-shadow:
+    -1px -1px 0 #fff,
+     1px -1px 0 #fff,
+    -1px  1px 0 #fff,
+     1px  1px 0 #fff;
+}
+
+.title {
+  font-family: 'Rustic Printed', sans-serif;
+  font-size: 96px;
+  font-weight: bold;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: transform 0.8s ease;
+  color: #1a2253;
+  letter-spacing: -1px;
+  text-shadow:
+    -1px -1px 0 #fff,
+     1px -1px 0 #fff,
+    -1px  1px 0 #fff,
+     1px  1px 0 #fff;
+}  
+
+.login-btn {
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 30px;
+  font-size: 18px;
+  cursor: pointer;
+  border: none;
+  background: #1a2253;
+  color: white;
+  border-radius: 5px;
+}
+
+.login-container {
+  position: absolute;
+  top: 0;
+  right: -400px;
+  width: 400px;
+  height: 100%;
+  background: white;
+  box-shadow: -2px 0 10px rgba(0,0,0,0.2);
+  transition: right 0.8s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-form {
+  width: 80%;
+}
+
+.login-form h2 {
+  margin-bottom: 20px;
+}
+
+.login-form input {
+  width: 100%;
+  margin-bottom: 15px;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.login-form button {
+  width: 100%;
+  padding: 10px;
+  background: #1a2253;
+  color: white;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Active states */
+.login-page.active .main-content {
+  transform: translateX(-300px);
+}
+
+.login-page.active .login-container {
+  right: 0;
+}

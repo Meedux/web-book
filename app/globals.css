@@ -31,3 +31,98 @@ body {
     text-wrap: balance;
   }
 }
+
+/* Custom animations from original CSS */
+@keyframes zoomIn {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes zoomOnly {
+  to {
+    transform: scale(2);
+  }
+}
+
+@keyframes shrinkAway {
+  to {
+    transform: scale(0.5);
+    opacity: 0.4;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Custom classes */
+.animation-zoom-in {
+  transform: scale(0);
+  opacity: 0;
+  animation: zoomIn 2s forwards;
+}
+
+.zoomed-fade-out {
+  animation: zoomOnly 1.2s ease forwards;
+  z-index: 10;
+}
+
+.shrink-out {
+  animation: shrinkAway 1.2s ease forwards;
+  z-index: 0;
+}
+
+/* Menu Tray */
+.menu-tray {
+  position: fixed;
+  top: 85px;
+  right: -250px;
+  width: 250px;
+  height: 100%;
+  padding: 20px;
+  background-color: #1a2253;
+  box-shadow: -4px 0 10px rgba(0, 0, 0, 0.1);
+  transition: right 0.3s ease;
+  z-index: 999;
+}
+
+.menu-tray.open {
+  right: 0;
+}
+
+/* Modal styling */
+.modal-overlay {
+  position: fixed;
+  top: 0; 
+  left: 0;
+  width: 100vw; 
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  animation: fadeIn 0.3s ease;
+}

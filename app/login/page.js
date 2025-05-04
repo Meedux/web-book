@@ -1,61 +1,63 @@
-import React, { useState } from 'react';
-import { useRouter } from 'next/router';
+'use client';
 
-const LoginPage = () => {
+import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+import './login.css';
+
+export default function LoginPage() {
+  const router = useRouter();
+  const [isLoginActive, setIsLoginActive] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const router = useRouter();
 
-  const handleLogin = (e) => {
+  const handleLoginClick = () => {
+    setIsLoginActive(true);
+  };
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-
-    const tempEmail = 'user1';
-    const tempPassword = '1234';
-
-    if (email !== tempEmail) {
-      setError('Email does not exist');
-      setEmail('');
-    } else if (password !== tempPassword) {
-      setError('Re-enter password');
-      setPassword('');
-    } else {
-      router.push('/index');
+    // Add your authentication logic here
+    if (email && password) {
+      router.push('/'); // Navigate to home page after login
     }
   };
 
   return (
-    <div className="flex items-center justify-center h-screen bg-yellow-400">
-      <div className="text-center">
-        <div className="mb-8">
-          <img src="/imgs/logo1.png" alt="Logo" className="h-10 mx-auto" />
-          <h1 className="text-2xl font-bold text-blue-900">ADONAI & GRACE SCHOOL INC.</h1>
+    <div className={`login-page ${isLoginActive ? 'active' : ''}`}>
+      <div className="main-content" id="mainContent">
+        <div className="top">
+          <Image src="/imgs/logo1.png" alt="Logo" width={40} height={40} className="logo" />
+          <span className="school-name">ADONAI & GRACE SCHOOL INC.</span>
         </div>
-        <h1 className="text-6xl font-bold text-blue-900 mb-8">Story Books</h1>
-        <form onSubmit={handleLogin} className="bg-white p-8 rounded shadow-md">
-          <h2 className="text-2xl font-bold mb-4">Login</h2>
-          {error && <p className="text-red-500 mb-4">{error}</p>}
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full p-2 mb-4 border rounded"
-            required
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full p-2 mb-4 border rounded"
-            required
-          />
-          <button type="submit" className="w-full bg-blue-900 text-white py-2 rounded">Submit</button>
-        </form>
+        <h1 className="title">Story Books</h1>
+        <button className="login-btn" id="loginBtn" onClick={handleLoginClick}>Login</button>
+      </div>
+
+      <div className="login-container" id="loginContainer">
+        <div className="login-form">
+          <h2>Login</h2>
+          <form onSubmit={handleSubmit}>
+            <input 
+              type="email" 
+              id="email" 
+              placeholder="Email" 
+              required 
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <input 
+              type="password" 
+              id="password" 
+              placeholder="Password" 
+              required 
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <button type="submit" id="submitBtn">Submit</button>
+          </form>
+        </div>
       </div>
     </div>
   );
-};
-
-export default LoginPage;
+}
