@@ -1,63 +1,157 @@
-'use client';
-
+"use client"
 import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import './login.css';
+import { useRouter } from 'next/navigation';
 
-export default function LoginPage() {
-  const router = useRouter();
-  const [isLoginActive, setIsLoginActive] = useState(false);
+const LoginPage = () => {
+  const [isActive, setIsActive] = useState(false);
+  const [isRegister, setIsRegister] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  const handleLoginClick = () => {
-    setIsLoginActive(true);
-  };
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [name, setName] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [nameError, setNameError] = useState('');
+  const [confirmPasswordError, setConfirmPasswordError] = useState('');
+  const router = useRouter();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Add your authentication logic here
-    if (email && password) {
-      router.push('/'); // Navigate to home page after login
+
+    const tempEmail = 'user1';
+    const tempPassword = '1234';
+
+    if (email !== tempEmail) {
+      setEmailError('Email does not exist');
+      setEmail('');
+    } else if (password !== tempPassword) {
+      setPasswordError('Re-enter password');
+      setPassword('');
+    } else {
+      router.push('/');
     }
   };
 
-  return (
-    <div className={`login-page ${isLoginActive ? 'active' : ''}`}>
-      <div className="main-content" id="mainContent">
-        <div className="top">
-          <Image src="/imgs/logo1.png" alt="Logo" width={40} height={40} className="logo" />
-          <span className="school-name">ADONAI & GRACE SCHOOL INC.</span>
-        </div>
-        <h1 className="title">Story Books</h1>
-        <button className="login-btn" id="loginBtn" onClick={handleLoginClick}>Login</button>
-      </div>
+  const handleRegisterSubmit = (e) => {
+    e.preventDefault();
 
-      <div className="login-container" id="loginContainer">
-        <div className="login-form">
-          <h2>Login</h2>
-          <form onSubmit={handleSubmit}>
-            <input 
-              type="email" 
-              id="email" 
-              placeholder="Email" 
-              required 
+    if (!name) {
+      setNameError('Name is required');
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setConfirmPasswordError('Passwords do not match');
+      return;
+    }
+
+    // Simulate successful registration
+    router.push('/welcome');
+  };
+
+  return (
+    <div className="flex flex-col items-center justify-center min-h-screen bg-[#e9c04a] ">
+      <div className="text-center mb-8">
+        <Image src="/imgs/logo1.png" alt="Logo" width={100} height={100} className="mx-auto" />
+        <span className="block text-2xl font-bold text-[#1a2253] text-shadow">ADONAI & GRACE SCHOOL INC.</span>
+      </div>
+      <h1 className="text-7xl font-bold text-[#1a2253] mb-16 text-shadow">Story Books</h1>
+      <button
+        className="w-48 py-2 bg-[#1a2253] text-white rounded hover:bg-[#1a2253]/90 mb-4"
+        onClick={() => {
+          setIsActive(true);
+          setIsRegister(false);
+        }}
+      >
+        Login
+      </button>
+      <button
+        className="w-48 py-2 bg-[#1a2253] text-white rounded hover:bg-[#1a2253]/90"
+        onClick={() => {
+          setIsActive(true);
+          setIsRegister(true);
+        }}
+      >
+        Register
+      </button>
+
+      <div
+        className={`fixed inset-y-0 right-0 bg-white shadow-lg w-96 transform transition-transform duration-500 ${isActive ? 'translate-x-0' : 'translate-x-full'}`}
+      >
+        <div className="p-6 relative">
+          <button
+            className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-2xl"
+            onClick={() => setIsActive(false)}
+          >
+            &times;
+          </button>
+          <h2 className="text-2xl font-bold mb-4">{isRegister ? 'Register' : 'Login'}</h2>
+          <form className="space-y-4" onSubmit={isRegister ? handleRegisterSubmit : handleSubmit}>
+            {isRegister && (
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => {
+                  setName(e.target.value);
+                  setNameError('');
+                }}
+                placeholder={nameError || 'Full Name'}
+                required
+                className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#1a2253]"
+              />
+            )}
+            <input
+              type="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                setEmailError('');
+              }}
+              placeholder={emailError || 'Email'}
+              required
+              className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#1a2253] bg-white text-black"
             />
-            <input 
-              type="password" 
-              id="password" 
-              placeholder="Password" 
-              required 
+            <input
+              type="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                setPasswordError('');
+              }}
+              placeholder={passwordError || 'Password'}
+              required
+              className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#1a2253] bg-white text-black"
             />
-            <button type="submit" id="submitBtn">Submit</button>
+            {isRegister && (
+              <input
+                type="password"
+                value={confirmPassword}
+                onChange={(e) => {
+                  setConfirmPassword(e.target.value);
+                  setConfirmPasswordError('');
+                }}
+                placeholder={confirmPasswordError || 'Confirm Password'}
+                required
+                className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#1a2253] bg-white text-black"
+              />
+            )}
+            <button
+              type="submit"
+              className="w-full py-2 bg-[#1a2253] text-white rounded hover:bg-[#1a2253]/90"
+            >
+              {isRegister ? 'Register' : 'Login'}
+            </button>
           </form>
         </div>
       </div>
+      <style jsx>{`
+        .text-shadow {
+          text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
+        }
+      `}</style>
     </div>
   );
-}
+};
+
+export default LoginPage;
