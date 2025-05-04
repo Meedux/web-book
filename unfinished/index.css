@@ -1,0 +1,446 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #ffffff;
+    overflow: hidden;
+    padding-top: 80px;
+    transition: all 0.8s ease;
+  }
+  
+  /* Container Animation */
+  .container {
+    display: flex;
+    gap: 80px;
+    transform: scale(0);
+    opacity: 0;
+    animation: zoomIn 2s forwards;
+    transition: transform 2s ease, opacity 2s ease;
+  }
+  
+  @keyframes zoomIn {
+    from {
+      transform: scale(0);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  
+  /* Book Styling */
+  .book {
+    position: relative;
+    width: 250px;
+    height: 375px;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 2s ease, box-shadow 0.4s ease;
+  }
+  
+  .image-wrapper {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: inherit;
+    transition: transform 0.4s ease;
+  }
+  
+  .image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  
+  .book h3 {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 15px 0;
+    text-align: center;
+    font-size: 22px;
+    color: white;
+    background: rgba(0, 0, 0, 0);
+    backdrop-filter: blur(0px);
+    transition: background 0.4s ease, backdrop-filter 0.4s ease;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+  }
+  
+  .book:hover {
+    transform: rotate(3deg);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+  }
+  
+  .book:hover .image-wrapper {
+    transform: scale(1.05);
+  }
+  
+  .book:hover h3 {
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
+  }
+  
+  a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+  }
+  
+  /* Header */
+  .header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 70px;
+    padding: 0 10px;
+    background-color: #e9c04a;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+  }
+  
+  .logo-area {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: 80px;
+  }
+
+  .header-title {
+    font-family: 'Rustic Printed', sans-serif;
+    font-size: 30px;
+    font-weight: bold;
+    color: #1a2253;
+    text-shadow:
+      -1px -1px 0 #fff,
+       1px -1px 0 #fff,
+      -1px  1px 0 #fff,
+       1px  1px 0 #fff;
+    flex-grow: 1;
+    text-align: center;
+    margin-left: -260px; /* adjust to center visually */
+  }  
+  
+  .logo-img {
+    height: 50px;
+    width: auto;
+  }
+  
+  .school-name {
+    display: flex;
+    flex-direction: column;
+    line-height: .6;
+  }
+  
+  .name-line1,
+  .name-line2 {
+    font-family: 'Rustic Printed', sans-serif;
+    font-weight: bold;
+    color: #1a2253;
+    text-shadow:
+      -1px -1px 0 #fff,
+       1px -1px 0 #fff,
+      -1px  1px 0 #fff,
+       1px  1px 0 #fff;
+  }
+  
+  .name-line1 {
+    font-size: 18px;
+    letter-spacing: -1px;
+  }
+  
+  .name-line2 {
+    font-size: 18px;
+    letter-spacing: -1px;
+  }  
+  
+  .settings {
+    margin-right: 20px;
+  }
+  
+  .settings-btn {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 24px;
+    height: 18px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+  
+  .settings-btn .bar {
+    height: 3px;
+    width: 100%;
+    background-color: #ffffff;
+    border-radius: 2px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .settings-btn:hover .bar {
+    background-color: #1a2253;
+  }
+  
+  /* Tray Menu */
+  .menu-tray {
+    position: fixed;
+    top: 70px;
+    right: -250px;
+    width: 250px;
+    height: 100%;
+    padding: 20px;
+    background-color: #1a2253;
+    box-shadow: -4px 0 10px rgba(0, 0, 0, 0.1);
+    transition: right 0.3s ease;
+    z-index: 999;
+  }
+  
+  .menu-tray.open {
+    right: 0;
+  }
+  
+  .menu-tray ul {
+    list-style: none;
+  }
+  
+  .menu-tray li {
+    margin: 20px 0;
+  }
+  
+  .menu-tray a {
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 18px;
+    transition: color 0.2s ease;
+  }
+  
+  .menu-tray a:hover {
+    color: #5b71ff;
+  }
+  
+  /* Dropdown Base */
+  .dropdown-content {
+    display: none;
+    padding: 15px;
+    margin-top: 10px;
+    border-radius: 5px;
+    background-color: #1a2253;
+    animation: slideDown 0.3s ease forwards;
+  }
+  
+  /* About Us Dropdown */
+  #about-us {
+    position: relative;
+    cursor: pointer;
+  }
+  
+  #about-us.open .dropdown-content {
+    display: block;
+    max-height: 400px;
+    opacity: 1;
+    transform: translateY(0);
+    padding: 15px;
+    pointer-events: auto;
+    color: #ffffff;
+    line-height: 2;
+  }
+  
+  .about-dropdown p {
+    font-size: 14px;
+    margin: 5px 0;
+    color: #ffffff;
+    line-height: 1.4;
+  }
+  
+  .dropdown-logo {
+    width: 100px;
+    height: auto;
+    margin: 10px auto 0;
+    display: block;
+  }
+  
+  /* Contacts Dropdown */
+  #contacts .dropdown-content {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.5s ease;
+    text-align: left;
+    pointer-events: none;
+  }
+  
+  #contacts.open .dropdown-content {
+    max-height: 500px;
+    opacity: 1;
+    transform: translateY(0);
+    padding: 15px;
+    pointer-events: auto;
+  }
+  
+  .contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  
+  .contact-item .icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    fill: #ffffff;
+    margin-top: 2px;
+  }
+  
+  .contact-item span {
+    font-size: 15px;
+    color: #ffffff;
+    line-height: 2;
+    max-width: 250px;
+    word-break: break-word;
+  }
+
+  /* Initially hide the contact dropdown */
+.contact-dropdown {
+    display: none;
+  }
+  
+  /* Show the dropdown when the 'open' class is added */
+  #contacts.open .contact-dropdown {
+    display: block;
+  }
+  
+  
+  /* Dropdown Animation */
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Book Click Animations */
+  .zoomed-fade-out {
+    animation: zoomOnly 1.2s ease forwards;
+    z-index: 10;
+  }
+  
+  @keyframes zoomOnly {
+    to {
+      transform: scale(2);
+    }
+  }
+  
+  .shrink-out {
+    animation: shrinkAway 1.2s ease forwards;
+    z-index: 0;
+  }
+  
+  @keyframes shrinkAway {
+    to {
+      transform: scale(0.5);
+      opacity: 0.4;
+    }
+  }
+  
+/* Logout Modal Styling */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    animation: fadeIn 0.3s ease;
+  }
+  
+  .modal-box {
+    background-color: #ffffff;
+    color: #1a2253;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    animation: scaleIn 0.3s ease;
+    font-family: 'Rustic Printed', sans-serif;
+  }
+  
+  .modal-box h2 {
+    margin-bottom: 10px;
+    font-size: 24px;
+  }
+  
+  .modal-box p {
+    font-size: 14px;
+    margin-bottom: 25px;
+    line-height: 1.5;
+  }
+  
+  .modal-buttons {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .modal-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-family: inherit;
+  }
+  
+  .logout-btn {
+    background-color: #1a2253;
+    color: #ffffff;
+  }
+  
+  .logout-btn:hover {
+    background-color: #3b4aa8;
+  }
+  
+  .cancel-btn {
+    background-color: #e9c04a;
+    color: #1a2253;
+  }
+  
+  .cancel-btn:hover {
+    background-color: #ffda64;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  @keyframes scaleIn {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+  

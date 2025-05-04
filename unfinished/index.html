@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book Selection</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rustic+Printed&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="index.css" />
+</head>
+<body>
+
+<!-- Logout Confirmation Modal -->
+<div id="logout-modal" class="modal-overlay">
+  <div class="modal-box">
+    <h2>Are you sure you want to leave this page?</h2>
+    <p>You'll need to log in again to access your account.</p>
+    <div class="modal-buttons">
+      <button id="logout-confirm" class="modal-btn logout-btn">Confirm</button>
+      <button id="logout-cancel" class="modal-btn cancel-btn">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Header -->
+<header class="header">
+  <div class="logo-area">
+    <img src="imgs/logo1.png" alt="Logo" class="logo-img" />
+    <div class="school-name">
+      <span class="name-line1">ADONAI AND GRACE</span><br />
+      <span class="name-line2">SCHOOL INC.</span>
+    </div>    
+  </div>
+
+  <!-- Add this new element -->
+  <div class="header-title">Story Books</div>
+
+  <div class="settings">
+    <button id="burger-btn" class="settings-btn" aria-label="Menu">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+  </div>
+</header>
+
+  <!-- Sliding Tray Menu -->
+  <nav id="menu-tray" class="menu-tray">
+    <ul>
+      <li><a href="#">Log out</a></li>
+      <li id="about-us">
+        <a href="#">About Us</a>
+        <div class="dropdown-content">
+          <p><strong>Active Minds, Gracious Hearts</strong></p>
+          <p>An INCLUSIVE COMMUNITY where everyone is PART of it and not APART from it.</p>
+          <img src="imgs/logo1.png" alt="Logo" class="dropdown-logo" />
+        </div>
+      </li>
+      <li id="contacts">
+        <a href="#">Contacts</a>
+        <div class="dropdown-content contact-dropdown">
+          <div class="contact-item">
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M12 2C8.14 2 5 5.14 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.86-3.14-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z" />
+            </svg>
+            <span>P9 B12 L18 Eastwood Residences, San Isidro, Rodriguez, Philippines</span>
+          </div>
+          <div class="contact-item">
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M6.62 10.79a15.464 15.464 0 006.59 6.59l2.2-2.2a1.003 1.003 0 011.11-.21c1.12.45 2.33.69 3.58.69a1 1 0 011 1v3.5a1 1 0 01-1 1C10.29 21.97 2.03 13.71 2.03 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.24 2.46.69 3.58.16.4.07.86-.21 1.11l-2.2 2.2z" />
+            </svg>
+            <span>0960 462 0070</span>
+          </div>
+          <div class="contact-item">
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M12 13.065L2 6V18h20V6l-10 7.065zM12 11L2 4h20L12 11z" />
+            </svg>
+            <span>AdonaiAndGraceSchool@yahoo.com</span>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="container">
+    <a href="book1.html" class="book" id="book1">
+      <div class="image-wrapper">
+        <img src="imgs/Book1/cover1.png" alt="Book 1" />
+      </div>
+      <h3>Story Book 1</h3>
+    </a>
+    <a href="book2.html" class="book" id="book2">
+      <div class="image-wrapper">
+        <img src="imgs/Book2/cover2.png" alt="Book 2" />
+      </div>
+      <h3>Story Book 2</h3>
+    </a>
+  </div>
+
+  <script src="index.js"></script>
+</body>
+</html>

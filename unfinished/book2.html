@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CSS Flip Book</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="logo-area">
+      <img src="imgs/logo1.png" alt="Logo" class="logo-img" />
+      <div class="school-name">
+        <span class="name-line1">ADONAI AND GRACE</span><br />
+        <span class="name-line2">SCHOOL INC.</span>
+      </div>    
+    </div>
+<!-- Home Button (updated to trigger the modal) -->
+<button id="home-btn" class="home-btn">
+  <i class="fas fa-home"></i> <!-- Home icon -->
+</button>
+
+<!-- Logout Confirmation Modal -->
+<div id="logout-modal" class="modal-overlay">
+  <div class="modal-box">
+    <h2>Are you sure you want to leave this page?</h2>
+    <p>This progress will not be saved if you wish to go back.</p>
+    <div class="modal-buttons">
+      <button id="logout-confirm" class="modal-btn logout-btn">Confirm</button>
+      <button id="logout-cancel" class="modal-btn cancel-btn">Cancel</button>
+    </div>
+  </div>
+</div>
+  </header>
+
+  <!-- Book Title -->
+  <div class="book-title">
+    <h1>BOOK2</h1>
+  </div>
+
+  <!-- Flip Book Container -->
+  <div class="book">
+    <input type="checkbox" id="c1">
+    <input type="checkbox" id="c2">
+    <input type="checkbox" id="c3">
+    <input type="checkbox" id="c4">
+    <input type="checkbox" id="c5">
+    <input type="checkbox" id="c6">
+
+    <!-- Cover -->
+    <div id="cover">
+      <img src="imgs/Book2/b21.png" alt="Book Cover">
+    </div>
+
+    <!-- Flip Book Pages -->
+    <div class="flip-book">
+      <!-- Page 1 -->
+      <div class="flip" id="p1">
+        <div class="back">
+          <img src="imgs/Book2/b22.png" alt="Page 1 Back">
+          <label class="back-btn" for="c1"><i class="fas fa-arrow-left"></i></label>
+        </div>
+        <div class="front">
+          <h2>PAGE1</h2>
+          <p>Lorem ipsum dolor sit amet...</p>
+          <label class="next-btn" for="c1"><i class="fas fa-arrow-right"></i></label>
+        </div>
+      </div>
+
+      <!-- Page 2 -->
+      <div class="flip" id="p2">
+        <div class="back">
+          <img src="imgs/Book2/b23.png" alt="Page 2 Back">
+          <label class="back-btn" for="c2"><i class="fas fa-arrow-left"></i></label>
+        </div>
+        <div class="front">
+          <h2>PAGE2</h2>
+          <p>Lorem ipsum dolor sit amet...</p>
+          <label class="next-btn" for="c2"><i class="fas fa-arrow-right"></i></label>
+        </div>
+      </div>
+
+      <!-- Page 3 -->
+      <div class="flip" id="p3">
+        <div class="back">
+          <img src="imgs/Book2/b24.png" alt="Page 3 Back">
+          <label class="back-btn" for="c3"><i class="fas fa-arrow-left"></i></label>
+        </div>
+        <div class="front">
+          <h2>PAGE3</h2>
+          <p>Lorem ipsum dolor sit amet...</p>
+          <label class="next-btn" for="c3"><i class="fas fa-arrow-right"></i></label>
+        </div>
+      </div>
+
+      <!-- Page 4 -->
+      <div class="flip" id="p4">
+        <div class="back">
+          <img src="imgs/Book2/b25.png" alt="Page 4 Back">
+          <label class="back-btn" for="c4"><i class="fas fa-arrow-left"></i></label>
+        </div>
+        <div class="front">
+          <h2>PAGE4</h2>
+          <p>Lorem ipsum dolor sit amet...</p>
+          <label class="next-btn" for="c4"><i class="fas fa-arrow-right"></i></label>
+        </div>
+      </div>
+
+      <!-- Page 5 -->
+      <div class="flip" id="p5">
+        <div class="back">
+          <img src="imgs/Book2/b26.png" alt="Page 5 Back">
+          <label class="back-btn" for="c5"><i class="fas fa-arrow-left"></i></label>
+        </div>
+        <div class="front">
+          <h2>PAGE5</h2>
+          <p>Lorem ipsum dolor sit amet...</p>
+          <label class="next-btn" for="c5"><i class="fas fa-arrow-right"></i></label>
+        </div>
+      </div>
+        <div class="front">
+          <h2>PAGE6</h2>
+          <p>Lorem ipsum dolor sit amet...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="book1.js"></script>
+</body>
+</html>
