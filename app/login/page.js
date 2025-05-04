@@ -3,6 +3,11 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
+const mockUsers = [
+  { email: 'user@example.com', password: '1234' },
+  { email: 'user2@example.com', password: 'abcd' },
+];
+
 const LoginPage = () => {
   const [isActive, setIsActive] = useState(false);
   const [isRegister, setIsRegister] = useState(false);
@@ -19,17 +24,15 @@ const LoginPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const tempEmail = 'user1';
-    const tempPassword = '1234';
+    const user = mockUsers.find((user) => user.email === email && user.password === password);
 
-    if (email !== tempEmail) {
-      setEmailError('Email does not exist');
+    if (!user) {
+      setEmailError('Invalid email or password');
+      setPasswordError('');
       setEmail('');
-    } else if (password !== tempPassword) {
-      setPasswordError('Re-enter password');
       setPassword('');
     } else {
-      router.push('/');
+      router.push('http://localhost:3005/home');
     }
   };
 
@@ -86,7 +89,15 @@ const LoginPage = () => {
           >
             &times;
           </button>
-          <h2 className="text-2xl font-bold mb-4">{isRegister ? 'Register' : 'Login'}</h2>
+          <div className="text-center mb-4">
+            <div className="h-20"></div> {/* Empty space for the logo */}
+            <h2 className="text-3xl font-bold text-[#1a2253]">
+              {isRegister ? 'Create Your Account' : 'Welcome Back!'}
+            </h2>
+            <p className="text-sm text-gray-600">
+              {isRegister ? 'Sign up to get started' : 'Login to continue'}
+            </p>
+          </div>
           <form className="space-y-4" onSubmit={isRegister ? handleRegisterSubmit : handleSubmit}>
             {isRegister && (
               <input

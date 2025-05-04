@@ -14,22 +14,22 @@ const Book2 = () => {
     {
       id: 'page2',
       leftContent: '/imgs/Book2/3.png',
-      rightContent: 'Page 2: Lorem ipsum dolor sit amet consectetur adipisicing elit.',
+      rightContent: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
     },
     {
       id: 'page3',
       leftContent: '/imgs/Book2/4.png',
-      rightContent: 'Page 3: Lorem ipsum dolor sit amet consectetur adipisicing elit.',
+      rightContent: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
     },
     {
       id: 'page4',
       leftContent: '/imgs/Book2/5.png',
-      rightContent: 'Page 4: Lorem ipsum dolor sit amet consectetur adipisicing elit.',
+      rightContent: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
     },
     {
       id: 'page5',
       leftContent: '/imgs/Book2/7.png',
-      rightContent: 'Page 5: Lorem ipsum dolor sit amet consectetur adipisicing elit.',
+      rightContent: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
     },
   ];
 
@@ -49,7 +49,9 @@ const Book2 = () => {
     <div className="min-h-screen bg-gray-100 flex flex-col items-center">
       <header className="w-full bg-[#e9c04a] p-4 px-6 flex justify-between items-center shadow-md">
         <div className="flex items-center gap-4">
-          <img src="/imgs/logo1.png" alt="Logo" className="h-12" />
+          <a href="/home">
+            <img src="/imgs/logo1.png" alt="Logo" className="h-12" />
+          </a>
           <div>
             <h1 className="text-base font-bold text-[#1a2253]">ADONAI AND GRACE</h1>
             <h2 className="text-base font-bold text-[#1a2253]">SCHOOL INC.</h2>
@@ -104,8 +106,8 @@ const Book2 = () => {
 
           {/* Right Page */}
           <div className="w-1/2 h-full p-8 flex flex-col justify-between">
-            <h2 className="text-2xl font-bold">{`Page ${currentPage + 1}`}</h2>
             <p className="text-lg text-gray-700">{pages[currentPage].rightContent}</p>
+            <h2 className="text-2xl font-bold self-end text-gray-900">{`Page ${currentPage + 1}`}</h2>
           </div>
 
           {/* Navigation Buttons */}

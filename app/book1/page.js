@@ -6,10 +6,10 @@ const FlipBook = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const pages = [
-    { id: 'page1', leftContent: '/imgs/Book1/b11.webp', rightContent: 'Page 1: Lorem ipsum dolor sit amet consectetur adipisicing elit.' },
-    { id: 'page2', leftContent: '/imgs/Book1/b12.webp', rightContent: 'Page 2: Lorem ipsum dolor sit amet consectetur adipisicing elit.' },
-    { id: 'page3', leftContent: '/imgs/Book1/b123.webp', rightContent: 'Page 3: Lorem ipsum dolor sit amet consectetur adipisicing elit.' },
-    { id: 'page4', leftContent: '/imgs/Book1/b1234.webp', rightContent: 'Page 4: Lorem ipsum dolor sit amet consectetur adipisicing elit.' },
+    { id: 'page1', leftContent: '/imgs/Book1/b11.webp', rightContent: 'Lorem ipsum dolor sit amet consectetur adipisicing elit Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec hendrerit, ante sed vehicula dignissim, turpis lectus semper lectus, in lacinia quam nisi ut metus. Nulla dignissim dolor ut augue condimentum sollicitudin. Nulla mattis, ipsum a elementum tincidunt, risus ligula lacinia libero, ac aliquet sem purus vel ex. Vestibulum et neque faucibus, ullamcorper massa id, rutrum ante. Curabitur tristique orci turpis. .' },
+    { id: 'page2', leftContent: '/imgs/Book1/b12.webp', rightContent: 'Lorem ipsum dolor sit amet consectetur adipisicing elit Nulla hendrerit malesuada egestas. Nunc dapibus aliquet nibh a ultricies. Mauris in purus scelerisque, rutrum nunc porta, consequat augue. Phasellus tempor nisl metus, vel pharetra nibh euismod vel. Phasellus convallis iaculis malesuada. Donec ante sem, luctus eget erat vel, vulputate placerat metus. Etiam sed est ornare, maximus odio sit amet, consectetur ante. Vivamus varius ligula et viverra accumsan..' },
+    { id: 'page3', leftContent: '/imgs/Book1/b123.webp', rightContent: 'Lorem ipsum dolor sit amet consectetur adipisicing elit Nulla hendrerit malesuada egestas. Nunc dapibus aliquet nibh a ultricies. Mauris in purus scelerisque, rutrum nunc porta, consequat augue. Phasellus tempor nisl metus, vel pharetra nibh euismod vel. Phasellus convallis iaculis malesuada. Donec ante sem, luctus eget erat vel, vulputate placerat metu..' },
+    { id: 'page4', leftContent: '/imgs/Book1/b1234.webp', rightContent: 'Praesent pharetra risus tincidunt suscipit scelerisque. Integer a ipsum sit amet mauris pretium rutrum. Cras a imperdiet mauris. Ut auctor dolor ac ante porta convallis. Phasellus rhoncus, elit a tristique efficitur, nibh mauris consectetur lacus, quis pulvinar purus ligula vitae libero. Praesent tempor fermentum libero id convallis..' },
   ];
 
   const handleNext = () => {
@@ -73,7 +73,7 @@ const FlipBook = () => {
         )}
       </header>
       <div className="text-center mt-4">
-        <h1 className="text-3xl font-bold pt-6 text-[#1a2253]">Fractured Fairy Tale</h1>
+        <h1 className="text-3xl pt-6 font-bold text-[#1a2253]">Fractured Fairy Tale</h1>
       </div>
       <div className="flex justify-center items-center flex-grow">
         <div className="relative w-[800px] h-[500px] bg-white shadow-lg rounded-lg flex overflow-hidden">
@@ -82,8 +82,8 @@ const FlipBook = () => {
 
           {/* Right Page */}
           <div className="w-1/2 h-full p-8 flex flex-col justify-between">
-            <h2 className="text-2xl font-bold">{`Page ${currentPage + 1}`}</h2>
             <p className="text-lg text-gray-700">{pages[currentPage].rightContent}</p>
+            <h2 className="text-2xl font-bold self-end text-gray-900">{`Page ${currentPage + 1}`}</h2>
           </div>
 
           {/* Navigation Buttons */}
