@@ -1,136 +1,201 @@
 "use client"
 import React, { useState } from 'react';
+import Link from 'next/link';
 
-const Book2 = () => {
-  const [currentPage, setCurrentPage] = useState(0);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+export default function Book2() {
+  // State to track checkbox states
+  const [coverChecked, setCoverChecked] = useState(false);
+  const [page1Checked, setPage1Checked] = useState(false);
+  const [page2Checked, setPage2Checked] = useState(false);
+  const [page3Checked, setPage3Checked] = useState(false);
+  const [page4Checked, setPage4Checked] = useState(false);
+  const [page5Checked, setPage5Checked] = useState(false);
 
-  const pages = [
-    {
-      id: 'page1',
-      leftContent: '/imgs/Book2/2.png',
-      rightContent: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit.',
-    },
-    {
-      id: 'page2',
-      leftContent: '/imgs/Book2/3.png',
-      rightContent: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
-    },
-    {
-      id: 'page3',
-      leftContent: '/imgs/Book2/4.png',
-      rightContent: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
-    },
-    {
-      id: 'page4',
-      leftContent: '/imgs/Book2/5.png',
-      rightContent: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
-    },
-    {
-      id: 'page5',
-      leftContent: '/imgs/Book2/7.png',
-      rightContent: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
-    },
-  ];
-
-  const handleNext = () => {
-    if (currentPage < pages.length - 1) {
-      setCurrentPage(currentPage + 1);
-    }
+  // Toggle functions for each checkbox
+  const toggleCover = (e) => {
+    e.preventDefault(); // Prevent default to ensure it works
+    setCoverChecked(!coverChecked);
   };
-
-  const handlePrev = () => {
-    if (currentPage > 0) {
-      setCurrentPage(currentPage - 1);
-    }
+  
+  const togglePage1 = (e) => {
+    e.preventDefault(); // Prevent default to ensure it works
+    setPage1Checked(!page1Checked);
+  };
+  
+  const togglePage2 = (e) => {
+    e.preventDefault(); // Prevent default to ensure it works
+    setPage2Checked(!page2Checked);
+  };
+  
+  const togglePage3 = (e) => {
+    e.preventDefault(); // Prevent default to ensure it works
+    setPage3Checked(!page3Checked);
+  };
+  
+  const togglePage4 = (e) => {
+    e.preventDefault(); // Prevent default to ensure it works
+    setPage4Checked(!page4Checked);
+  };
+  
+  const togglePage5 = (e) => {
+    e.preventDefault(); // Prevent default to ensure it works
+    setPage5Checked(!page5Checked);
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center">
-      <header className="w-full bg-[#e9c04a] p-4 px-6 flex justify-between items-center shadow-md">
-        <div className="flex items-center gap-4">
-          <a href="/home">
-            <img src="/imgs/logo1.png" alt="Logo" className="h-12" />
-          </a>
-          <div>
-            <h1 className="text-base font-bold text-[#1a2253]">ADONAI AND GRACE</h1>
-            <h2 className="text-base font-bold text-[#1a2253]">SCHOOL INC.</h2>
+    <>
+      <header className="header">
+        <div className="logo-area">
+          <img src="/imgs/logo1.png" alt="Logo" className="logo-img" />
+          <div className="school-name">
+            <span className="name-line1">ADONAI AND GRACE</span><br />
+            <span className="name-line2">SCHOOL INC.</span>
           </div>
         </div>
-        <h1 className="text-xl font-bold text-[#1a2253] absolute left-1/2 transform -translate-x-1/2">Story Books</h1>
-        <button
-          className="text-xl text-[#1a2253] focus:outline-none"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-        >
-          ☰
-        </button>
-        {isMenuOpen && (
-          <div className="absolute top-14 right-6 bg-white shadow-lg rounded p-3 w-36">
-            <ul className="space-y-2">
-              <li>
-                <button
-                  className="w-full text-left text-[#1a2253] hover:bg-gray-100 p-2 rounded text-sm"
-                  onClick={() => alert('Logging out...')}
-                >
-                  Log Out
-                </button>
-              </li>
-              <li>
-                <button
-                  className="w-full text-left text-[#1a2253] hover:bg-gray-100 p-2 rounded text-sm"
-                  onClick={() => alert('About Us clicked')}
-                >
-                  About Us
-                </button>
-              </li>
-              <li>
-                <button
-                  className="w-full text-left text-[#1a2253] hover:bg-gray-100 p-2 rounded text-sm"
-                  onClick={() => alert('Contact clicked')}
-                >
-                  Contact
-                </button>
-              </li>
-            </ul>
-          </div>
-        )}
+        <Link href="/home" className="home-btn">
+          <i className="fas fa-home">&#8962;</i>
+        </Link>
       </header>
 
-      <div className="text-center mt-4">
-        <h1 className="text-3xl pt-6 font-bold text-[#1a2253]">Book 2</h1>
-      </div>
-      <div className="flex justify-center items-center flex-grow">
-        <div className="relative w-[800px] h-[500px] bg-white shadow-lg rounded-lg flex overflow-hidden">
-          {/* Left Page */}
-          <div className="w-1/2 h-full bg-cover bg-center" style={{ backgroundImage: `url(${pages[currentPage].leftContent})` }}></div>
+      <div className="book-container">
+        <div className="book-title">
+          <h1>Book 2</h1>
+        </div>
+        <div className="book-area">
+          {/* Hidden checkboxes to maintain original functionality */}
+          <input 
+            type="checkbox" 
+            id="checkbox-cover"
+            checked={coverChecked}
+            readOnly
+          />
+          <input 
+            type="checkbox" 
+            id="checkbox-page1"
+            checked={page1Checked}
+            readOnly
+          />
+          <input 
+            type="checkbox" 
+            id="checkbox-page2"
+            checked={page2Checked}
+            readOnly
+          />
+          <input 
+            type="checkbox" 
+            id="checkbox-page3"
+            checked={page3Checked}
+            readOnly
+          />
+          <input 
+            type="checkbox" 
+            id="checkbox-page4"
+            checked={page4Checked}
+            readOnly
+          />
+          <input 
+            type="checkbox" 
+            id="checkbox-page5"
+            checked={page5Checked}
+            readOnly
+          />
 
-          {/* Right Page */}
-          <div className="w-1/2 h-full p-8 flex flex-col justify-between">
-            <p className="text-lg text-gray-700">{pages[currentPage].rightContent}</p>
-            <h2 className="text-2xl font-bold self-end text-gray-900">{`Page ${currentPage + 1}`}</h2>
+          {/* Book with proper class names that match CSS selectors */}
+          <div className={`book ${coverChecked ? 'cover-checked' : ''} ${page1Checked ? 'page1-checked' : ''} ${page2Checked ? 'page2-checked' : ''} ${page3Checked ? 'page3-checked' : ''} ${page4Checked ? 'page4-checked' : ''} ${page5Checked ? 'page5-checked' : ''}`}>
+            <div className="cover">
+              <div className="front-cover" onClick={toggleCover}>
+                <img src="/imgs/Book2/cover2.png" alt="Cover Image" loading="lazy" />
+              </div>
+              <div className="inside-cover" onClick={toggleCover}></div>
+            </div>
+
+            <div className="page" id="page1">
+              <div className="front-page">
+                <h2>PAGE 1</h2>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
+                <div className="next" onClick={togglePage1}>
+                  <i className="fas fa-chevron-right">›</i>
+                </div>
+              </div>
+              <div className="back-page">
+                <img src="/imgs/Book2/2.png" alt="Page Image" />
+                <div className="prev" onClick={togglePage1}>
+                  <i className="fas fa-chevron-left">‹</i>
+                </div>
+              </div>
+            </div>
+
+            <div className="page" id="page2">
+              <div className="front-page">
+                <h2>PAGE 2</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                <div className="next" onClick={togglePage2}>
+                  <i className="fas fa-chevron-right">›</i>
+                </div>
+              </div>
+              <div className="back-page">
+                <img src="/imgs/Book2/3.png" alt="Page Image" />
+                <div className="prev" onClick={togglePage2}>
+                  <i className="fas fa-chevron-left">‹</i>
+                </div>
+              </div>
+            </div>
+
+            <div className="page" id="page3">
+              <div className="front-page">
+                <h2>PAGE 3</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                <div className="next" onClick={togglePage3}>
+                  <i className="fas fa-chevron-right">›</i>
+                </div>
+              </div>
+              <div className="back-page">
+                <img src="/imgs/Book2/4.png" alt="Page Image" />
+                <div className="prev" onClick={togglePage3}>
+                  <i className="fas fa-chevron-left">‹</i>
+                </div>
+              </div>
+            </div>
+
+            <div className="page" id="page4">
+              <div className="front-page">
+                <h2>PAGE 4</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                <div className="next" onClick={togglePage4}>
+                  <i className="fas fa-chevron-right">›</i>
+                </div>
+              </div>
+              <div className="back-page">
+                <img src="/imgs/Book2/5.png" alt="Page Image" />
+                <div className="prev" onClick={togglePage4}>
+                  <i className="fas fa-chevron-left">‹</i>
+                </div>
+              </div>
+            </div>
+
+            <div className="page" id="page5">
+              <div className="front-page">
+                <h2>PAGE 5</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                <div className="next" onClick={togglePage5}>
+                  <i className="fas fa-chevron-right">›</i>
+                </div>
+              </div>
+              <div className="back-page">
+                <img src="/imgs/Book2/7.png" alt="Page Image" />
+                <div className="prev" onClick={togglePage5}>
+                  <i className="fas fa-chevron-left">‹</i>
+                </div>
+              </div>
+            </div>
+
+            <div className="back-cover"></div>
           </div>
-
-          {/* Navigation Buttons */}
-          {currentPage > 0 && (
-            <button
-              onClick={handlePrev}
-              className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full"
-            >
-              &#8249;
-            </button>
-          )}
-          {currentPage < pages.length - 1 && (
-            <button
-              onClick={handleNext}
-              className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full"
-            >
-              &#8250;
-            </button>
-          )}
         </div>
       </div>
-    </div>
+      
+      {/* Font Awesome for icons */}
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    </>
   );
-};
-
-export default Book2;
+}

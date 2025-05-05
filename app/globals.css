@@ -2,29 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
 
 @layer utilities {
   .text-balance {
@@ -78,21 +55,343 @@ body {
   }
 }
 
-/* Custom classes */
-.animation-zoom-in {
-  transform: scale(0);
-  opacity: 0;
-  animation: zoomIn 2s forwards;
+/* Original book styles */
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: #ffffff;
+  margin: 0;
+  overflow-x: hidden;
 }
 
-.zoomed-fade-out {
-  animation: zoomOnly 1.2s ease forwards;
-  z-index: 10;
+.book {
+  width: 400px;
+  height: 530px;
+  position: relative;
+  transition-duration: 1s;
+  perspective: 1500px;
+  max-width: 100%;
+  max-height: 100%;
 }
 
-.shrink-out {
-  animation: shrinkAway 1.2s ease forwards;
+input {
+  display: none;
+}
+
+.cover, .back-cover {
+  background-color: #0a131c;
+  width: 100%;
+  height: 100%;
+  border-radius: 0 15px 15px 0;
+  box-shadow: 0 0 5px rgb(41, 41, 41);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-origin: center left;
+}
+
+.cover {
+  position: absolute;
+  z-index: 4;
+  transition: transform 1s;
+  transform-style: preserve-3d;
+}
+
+.cover label {
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.cover .front-cover,
+.cover .inside-cover {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 0 15px 15px 0;
+  overflow: hidden;
+}
+
+.cover .front-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0 15px 15px 0;
+}
+
+.cover .inside-cover {
+  background-color: #0a131c;
+  transform: rotateY(180deg);
+  border-radius: 15px 0 0 15px;
+}
+
+.back-cover {
+  position: relative;
+  z-index: -1;
+  border-radius: 0 15px 15px 0;
+  background-color: #0a131c;
+}
+
+.page {
+  position: absolute;
+  background-color: white;
+  width: 380px;
+  height: 510px;
+  border-radius: 0 15px 15px 0;
+  margin-top: 10px;
+  transform-origin: left;
+  transform-style: preserve-3d;
+  transform: rotateY(0deg);
+  transition-duration: 1.5s;
+}
+
+.page img {
+  width: 100%;
+  height: 100%;
+  border-radius: 15px 0 0 15px;
+}
+
+.front-page {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  box-sizing: border-box;
+  padding: 1rem;
+}
+
+.back-page {
+  transform: rotateY(180deg);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  z-index: 99;
+  border-radius: 0 15px 15px 0;
+}
+
+.next, .prev {
+  position: absolute;
+  bottom: 1em;
+  cursor: pointer;
+}
+
+.next {
+  right: 1em;
+}
+
+.prev {
+  left: 1em;
+}
+
+#page1 {
+  z-index: 3;
+}
+
+#page2 {
+  z-index: 2;
+}
+
+#page3 {
+  z-index: 1;
+}
+
+#page4 {
   z-index: 0;
+}
+
+.book-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 100px;
+  animation: fadeInBook 1s ease-in-out forwards;
+}
+
+.book-title {
+  color: #141414;
+  font-family: 'Poppins', sans-serif;
+  margin-bottom: 1px;
+  text-align: center;
+  font-size: 20px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+  max-width: 90%;
+  overflow: hidden;
+}
+
+.book-area {
+  display: flex;
+  justify-content: center;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 70px;
+  padding: 0 10px;
+  background-color: #e9c04a;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+}
+
+.logo-area {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: 90px;
+}
+
+.logo-img {
+  height: 50px;
+  width: auto;
+}
+
+.school-name {
+  display: flex;
+  flex-direction: column;
+  line-height: .6;
+}
+
+.name-line1,
+.name-line2 {
+  font-family: 'Rustic Printed', sans-serif;
+  font-weight: bold;
+  color: #1a2253;
+  text-shadow:
+    -1px -1px 0 #fff,
+    1px -1px 0 #fff,
+    -1px  1px 0 #fff,
+    1px  1px 0 #fff;
+}
+
+.name-line1 {
+  font-size: 18px;
+  letter-spacing: -1px;
+}
+
+.name-line2 {
+  font-size: 18px;
+  letter-spacing: -1px;
+}
+
+.home-btn {
+  font-size: 24px;
+  background-color: transparent;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-right: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  outline: none;
+}
+
+.home-btn:hover {
+  background-color: transparent;
+  color: #1a2253;
+}
+
+.home-btn:focus {
+  outline: none;
+}
+
+/* React specific book styles */
+.cover-checked {
+  transform: translateX(200px);
+}
+
+.cover-checked .cover {
+  transition: transform 1.5s, z-index 0.5s 0.5s;
+  transform: rotateY(-180deg);
+  z-index: 1;
+}
+
+.cover-checked .page {
+  box-shadow: 0 0 3px rgb(99, 98, 98);
+}
+
+.page1-checked #page1 {
+  transform: rotateY(-180deg);
+  z-index: 2;
+}
+
+.page2-checked #page2 {
+  transform: rotateY(-180deg);
+  z-index: 3;
+}
+
+.page3-checked #page3 {
+  transform: rotateY(-180deg);
+  z-index: 4;
+}
+
+.page4-checked #page4 {
+  transform: rotateY(-180deg);
+  z-index: 5;
+}
+
+.page5-checked #page5 {
+  transform: rotateY(-180deg);
+  z-index: 6;
+}
+
+@keyframes fadeInBook {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Adjust the sizes of the book and title */
+@media (max-width: 1200px) {
+  .book {
+    width: 350px;
+    height: 450px;
+  }
+  .page {
+    width: 330px;
+    height: 430px;
+  }
+  .book-title {
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 768px) {
+  .book {
+    width: 280px;
+    height: 380px;
+  }
+  .page {
+    width: 260px;
+    height: 360px;
+  }
+  .book-title {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .book {
+    width: 220px;
+    height: 300px;
+  }
+  .page {
+    width: 200px;
+    height: 280px;
+  }
+  .book-title {
+    font-size: 16px;
+  }
 }
 
 /* Menu Tray */
