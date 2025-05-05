@@ -1,168 +1,283 @@
-"use client"
-import React, { useState } from 'react';
-import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+"use client";
 
-const mockUsers = [
-  { email: 'user@example.com', password: '1234' },
-  { email: 'user2@example.com', password: 'abcd' },
-];
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
+import { useAuth } from "../lib/auth/AuthProvider";
 
-const LoginPage = () => {
-  const [isActive, setIsActive] = useState(false);
-  const [isRegister, setIsRegister] = useState(false);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [emailError, setEmailError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
-  const [name, setName] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [nameError, setNameError] = useState('');
-  const [confirmPasswordError, setConfirmPasswordError] = useState('');
+export default function Login() {
+  const [activeTab, setActiveTab] = useState("login");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+
+  const { login, register } = useAuth();
   const router = useRouter();
 
-  const handleSubmit = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
+    setError("");
+    setLoading(true);
 
-    const user = mockUsers.find((user) => user.email === email && user.password === password);
-
-    if (!user) {
-      setEmailError('Invalid email or password');
-      setPasswordError('');
-      setEmail('');
-      setPassword('');
-    } else {
-      router.push('http://localhost:3005/home');
+    try {
+      await login(email, password);
+      setSuccessMessage("Login successful! Redirecting...");
+      router.push("/home");
+    } catch (err) {
+      setError(err.message || "Login failed. Please check your credentials.");
+    } finally {
+      setLoading(false);
     }
   };
 
-  const handleRegisterSubmit = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
-
-    if (!name) {
-      setNameError('Name is required');
-      return;
-    }
+    setError("");
+    setLoading(true);
 
     if (password !== confirmPassword) {
-      setConfirmPasswordError('Passwords do not match');
+      setError("Passwords do not match");
+      setLoading(false);
       return;
     }
 
-    // Simulate successful registration
-    router.push('/welcome');
+    try {
+      await register(name, email, password, confirmPassword);
+      setSuccessMessage("Registration successful! Redirecting...");
+      router.push("/home");
+    } catch (err) {
+      setError(err.message || "Registration failed. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-[#e9c04a] ">
-      <div className="text-center mb-8">
-        <Image src="/imgs/logo1.png" alt="Logo" width={100} height={100} className="mx-auto" />
-        <span className="block text-2xl font-bold text-[#1a2253] text-shadow">ADONAI & GRACE SCHOOL INC.</span>
-      </div>
-      <h1 className="text-7xl font-bold text-[#1a2253] mb-16 text-shadow">Story Books</h1>
-      <button
-        className="w-48 py-2 bg-[#1a2253] text-white rounded hover:bg-[#1a2253]/90 mb-4"
-        onClick={() => {
-          setIsActive(true);
-          setIsRegister(false);
-        }}
-      >
-        Login
-      </button>
-      <button
-        className="w-48 py-2 bg-[#1a2253] text-white rounded hover:bg-[#1a2253]/90"
-        onClick={() => {
-          setIsActive(true);
-          setIsRegister(true);
-        }}
-      >
-        Register
-      </button>
-
-      <div
-        className={`fixed inset-y-0 right-0 bg-white shadow-lg w-96 transform transition-transform duration-500 ${isActive ? 'translate-x-0' : 'translate-x-full'}`}
-      >
-        <div className="p-6 relative">
-          <button
-            className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-2xl"
-            onClick={() => setIsActive(false)}
-          >
-            &times;
-          </button>
-          <div className="text-center mb-4">
-            <div className="h-20"></div> {/* Empty space for the logo */}
-            <h2 className="text-3xl font-bold text-[#1a2253]">
-              {isRegister ? 'Create Your Account' : 'Welcome Back!'}
-            </h2>
-            <p className="text-sm text-gray-600">
-              {isRegister ? 'Sign up to get started' : 'Login to continue'}
-            </p>
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full space-y-8">
+        <div>
+          <div className="text-center mb-8">
+            <Image
+              src="/imgs/logo1.png"
+              alt="Logo"
+              width={100}
+              height={100}
+              className="mx-auto"
+            />
+            <span className="block text-2xl font-bold text-[#1a2253] text-shadow">
+              ADONAI & GRACE SCHOOL INC.
+            </span>
           </div>
-          <form className="space-y-4" onSubmit={isRegister ? handleRegisterSubmit : handleSubmit}>
-            {isRegister && (
-              <input
-                type="text"
-                value={name}
-                onChange={(e) => {
-                  setName(e.target.value);
-                  setNameError('');
-                }}
-                placeholder={nameError || 'Full Name'}
-                required
-                className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#1a2253]"
-              />
-            )}
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => {
-                setEmail(e.target.value);
-                setEmailError('');
-              }}
-              placeholder={emailError || 'Email'}
-              required
-              className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#1a2253] bg-white text-black"
-            />
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => {
-                setPassword(e.target.value);
-                setPasswordError('');
-              }}
-              placeholder={passwordError || 'Password'}
-              required
-              className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#1a2253] bg-white text-black"
-            />
-            {isRegister && (
-              <input
-                type="password"
-                value={confirmPassword}
-                onChange={(e) => {
-                  setConfirmPassword(e.target.value);
-                  setConfirmPasswordError('');
-                }}
-                placeholder={confirmPasswordError || 'Confirm Password'}
-                required
-                className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#1a2253] bg-white text-black"
-              />
-            )}
-            <button
-              type="submit"
-              className="w-full py-2 bg-[#1a2253] text-white rounded hover:bg-[#1a2253]/90"
-            >
-              {isRegister ? 'Register' : 'Login'}
-            </button>
-          </form>
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+            {activeTab === "login"
+              ? "Sign in to your account"
+              : "Create a new account"}
+          </h2>
         </div>
+
+        {/* Tab Navigation */}
+        <div className="flex border-b border-gray-200">
+          <button
+            className={`py-2 px-4 focus:outline-none ${
+              activeTab === "login"
+                ? "text-blue-500 border-b-2 border-blue-500"
+                : "text-gray-500 hover:text-blue-400"
+            }`}
+            onClick={() => setActiveTab("login")}
+          >
+            Login
+          </button>
+          <button
+            className={`py-2 px-4 focus:outline-none ${
+              activeTab === "register"
+                ? "text-blue-500 border-b-2 border-blue-500"
+                : "text-gray-500 hover:text-blue-400"
+            }`}
+            onClick={() => setActiveTab("register")}
+          >
+            Register
+          </button>
+        </div>
+
+        {/* Error and Success Messages */}
+        {error && (
+          <div className="rounded-md bg-red-50 p-4">
+            <div className="flex">
+              <div className="ml-3">
+                <h3 className="text-sm font-medium text-red-800">Error</h3>
+                <div className="text-sm text-red-700">{error}</div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {successMessage && (
+          <div className="rounded-md bg-green-50 p-4">
+            <div className="flex">
+              <div className="ml-3">
+                <h3 className="text-sm font-medium text-green-800">Success</h3>
+                <div className="text-sm text-green-700">{successMessage}</div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {activeTab === "login" ? (
+          <form className="mt-8 space-y-6" onSubmit={handleLogin}>
+            <div className="rounded-md shadow-sm -space-y-px">
+              <div>
+                <label htmlFor="email-address" className="sr-only">
+                  Email address
+                </label>
+                <input
+                  id="email-address"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  required
+                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
+                  placeholder="Email address"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+              <div>
+                <label htmlFor="password" className="sr-only">
+                  Password
+                </label>
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  autoComplete="current-password"
+                  required
+                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
+                  placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+            </div>
+
+            <div>
+              <button
+                type="submit"
+                disabled={loading}
+                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              >
+                {loading ? "Signing in..." : "Sign in"}
+              </button>
+            </div>
+          </form>
+        ) : (
+          <form className="mt-8 space-y-6" onSubmit={handleRegister}>
+            <div className="rounded-md shadow-sm -space-y-px">
+              <div>
+                <label htmlFor="name" className="sr-only">
+                  Name
+                </label>
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  autoComplete="name"
+                  required
+                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
+                  placeholder="Full Name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </div>
+              <div>
+                <label htmlFor="reg-email" className="sr-only">
+                  Email address
+                </label>
+                <input
+                  id="reg-email"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  required
+                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
+                  placeholder="Email address"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+              <div>
+                <label htmlFor="reg-password" className="sr-only">
+                  Password
+                </label>
+                <input
+                  id="reg-password"
+                  name="password"
+                  type="password"
+                  autoComplete="new-password"
+                  required
+                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
+                  placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+              <div>
+                <label htmlFor="confirm-password" className="sr-only">
+                  Confirm Password
+                </label>
+                <input
+                  id="confirm-password"
+                  name="confirmPassword"
+                  type="password"
+                  autoComplete="new-password"
+                  required
+                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
+                  placeholder="Confirm Password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                />
+              </div>
+            </div>
+
+            <div>
+              <button
+                type="submit"
+                disabled={loading}
+                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              >
+                {loading ? "Creating Account..." : "Create Account"}
+              </button>
+            </div>
+          </form>
+        )}
+
+        <p className="mt-2 text-center text-sm text-gray-600">
+          {activeTab === "login" ? (
+            <>
+              {"Don't"} have an account?{" "}
+              <button
+                className="font-medium text-blue-600 hover:text-blue-500"
+                onClick={() => setActiveTab("register")}
+              >
+                Register now
+              </button>
+            </>
+          ) : (
+            <>
+              Already have an account?{" "}
+              <button
+                className="font-medium text-blue-600 hover:text-blue-500"
+                onClick={() => setActiveTab("login")}
+              >
+                Sign in
+              </button>
+            </>
+          )}
+        </p>
       </div>
-      <style jsx>{`
-        .text-shadow {
-          text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
-        }
-      `}</style>
     </div>
   );
-};
-
-export default LoginPage;
+}

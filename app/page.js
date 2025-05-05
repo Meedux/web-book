@@ -1,11 +1,13 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import { useAuth } from './lib/auth/AuthProvider';
 
 const IndexPage = () => {
   const router = useRouter();
+  const { user, isLoading } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
   const [aboutUsOpen, setAboutUsOpen] = useState(false);
   const [contactsOpen, setContactsOpen] = useState(false);
@@ -15,6 +17,18 @@ const IndexPage = () => {
   const book1Ref = useRef(null);
   const book2Ref = useRef(null);
 
+  useEffect(() => {
+    if (!isLoading) {
+      if (user) {
+        // User is authenticated, redirect to home
+        router.push('/home');
+      } else {
+        // User is not authenticated, redirect to login
+        router.push('/login');
+      }
+    }
+  }, [user, isLoading, router]);
+  
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };

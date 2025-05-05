@@ -1,8 +1,21 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useAuth } from '../lib/auth/AuthProvider';
+import { useRouter } from 'next/navigation';
 
 export default function Book2() {
+  // Auth protection
+  const { user, isLoading, logout } = useAuth();
+  const router = useRouter();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  
+  useEffect(() => {
+    if (!isLoading && !user) {
+      router.push('/login');
+    }
+  }, [user, isLoading, router]);
+
   // State to track checkbox states
   const [coverChecked, setCoverChecked] = useState(false);
   const [page1Checked, setPage1Checked] = useState(false);
@@ -41,6 +54,22 @@ export default function Book2() {
     e.preventDefault(); // Prevent default to ensure it works
     setPage5Checked(!page5Checked);
   };
+  
+  const handleLogout = async () => {
+    await logout();
+  };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-xl">Loading...</p>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return null; // Will be redirected by the useEffect
+  }
 
   return (
     <>
@@ -52,9 +81,37 @@ export default function Book2() {
             <span className="name-line2">SCHOOL INC.</span>
           </div>
         </div>
-        <Link href="/home" className="home-btn">
-          <i className="fas fa-home">&#8962;</i>
-        </Link>
+        <div className="relative">
+          <button
+            className="home-btn"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            <i className="fas fa-home">&#8962;</i>
+          </button>
+          {isMenuOpen && (
+            <div className="absolute top-12 right-0 bg-white shadow-lg rounded p-3 w-48">
+              <div className="mb-4 pb-2 border-b border-gray-100">
+                <p className="text-sm font-medium text-gray-800">Signed in as:</p>
+                <p className="text-sm text-gray-600">{user.name}</p>
+              </div>
+              <ul className="space-y-2">
+                <li>
+                  <Link href="/home" className="block py-2 px-2 hover:bg-gray-100 rounded text-sm">
+                    Home
+                  </Link>
+                </li>
+                <li>
+                  <button
+                    className="w-full text-left py-2 px-2 hover:bg-gray-100 rounded text-sm text-red-600"
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </button>
+                </li>
+              </ul>
+            </div>
+          )}
+        </div>
       </header>
 
       <div className="book-container">

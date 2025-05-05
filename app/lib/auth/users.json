@@ -1,0 +1,25 @@
+{
+  "users": [
+    {
+      "id": "-gYIxuP73eXWNmWsCbzr5",
+      "name": "Demo User",
+      "email": "user@example.com",
+      "password": "$2b$10$CVkhgy6kC6KuVTjqq.eAqOwkCbvNxq9KrhZwPaQI4zEGdIJKHqZKC",
+      "createdAt": "2025-05-05T05:42:29.874Z"
+    },
+    {
+      "id": "9y0lSlv2jurpJu2VvcHWI",
+      "name": "Demo User 2",
+      "email": "user2@example.com",
+      "password": "$2b$10$NRiaqUbkiLSPyHlPJPGgG.TvicswMTAe6Nh3nTqrzty9VmFVYYmMe",
+      "createdAt": "2025-05-05T05:42:30.018Z"
+    },
+    {
+      "id": "wmQ5rbeNlK-uBgv1NYGuo",
+      "name": "John Doe",
+      "email": "herrerojayemark@gmail.com",
+      "password": "$2b$10$y8yNQvqhrA5fhK9n/B0InuLofRAvH4SdCxNVHm3oBN0/zz/Qx97WC",
+      "createdAt": "2025-05-05T05:46:47.241Z"
+    }
+  ]
+}
